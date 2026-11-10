@@ -1,0 +1,146 @@
+﻿id,title,description,category,city,urgency,true_priority,true_best_ngo
+376,Severe starvation emergency,Elderly residents in Bangalore slum are starving with absolutely no food supplies left for 7 days.,Food,Bangalore,high,Critical,
+377,Milk and nutrition for infants,Single mother in Chennai cannot afford baby milk and nutritional supplements for 10 days.,Food,Chennai,medium,High,
+378,Post-surgery recovery care,Patient Deepa discharged from Tindivanam hospital needs special nutritional care and medicines.,Healthcare,Tindivanam,medium,High,NGO Organization 1
+379,Community kitchen food aid,Migrant laborer family of 6 stranded in Vellore without kitchen rations for 7 days.,Food,Vellore,medium,High,
+380,Grocery ration kit request,"Requesting monthly grocery provisions (rice, lentils, cooking oil) for household of 5 in Vellore.",Food,Vellore,low,Normal,
+381,Severe starvation emergency,Critical emergency involving surgery. Elderly residents in Salem slum are starving with absolutely no food supplies left for 7 days.,Food,Salem,high,Critical,NGO Organization 20
+382,Board exam coaching fees,"Financial hardship in Puducherry preventing Priya from paying 2,500 coaching fees for 12th board exams.",Education,Puducherry,high,Normal,
+383,Roof repair after storm,"Heavy storm in Madurai destroyed tin roof of our house; 10,000 needed for roof restoration.",Shelter,Madurai,medium,High,
+384,Temporary shelter for migrants,Displaced family of 6 in Salem sleeping on streets for 7 days seeking shelter aid.,Shelter,Salem,medium,High,NGO Organization 17
+385,Tailoring machine for livelihood,"Widow in Bangalore requesting a sewing machine worth 7,500 to earn independent income.",Skill Development,Bangalore,medium,Normal,
+386,Typing and data entry class,"Job seeker Anitha in Madurai needs 5,000 for clerical skill certification exam.",Skill Development,Madurai,low,Normal,
+387,Handicraft toolkit assistance,"Artisan family in Bangalore needs raw materials and tools worth 10,000 to restart craft work.",Skill Development,Bangalore,medium,Normal,NGO Organization 10
+388,Dental surgery financial aid,"Severe tooth infection requiring minor surgery costing 20,000 for Priya in Madurai.",Healthcare,Madurai,low,Normal,
+389,Post-surgery recovery care,Patient Arun discharged from Villupuram hospital needs special nutritional care and medicines.,Healthcare,Villupuram,medium,High,
+390,House rent arrears assistance,"Landlord threatening eviction in Villupuram within 10 days unless past rent of 2,500 is cleared.",Shelter,Villupuram,high,High,NGO Organization 12
+391,Shelter deposit support,"Need 7,500 advance deposit to secure safe rental room in Chennai after displacement.",Shelter,Chennai,low,Normal,
+392,Post-surgery recovery care (Reminder),Patient Arun discharged from Villupuram hospital needs special nutritional care and medicines. Please review this urgent matter again.,Healthcare,Villupuram,medium,High,
+393,Grocery ration kit request,"Requesting monthly grocery provisions (rice, lentils, cooking oil) for household of 4 in Cuddalore.",Food,Cuddalore,low,Normal,NGO Organization 16
+394,Board exam coaching fees (Reminder),"Financial hardship in Puducherry preventing Priya from paying 2,500 coaching fees for 12th board exams. Please review this urgent matter again.",Education,Puducherry,high,Normal,
+395,Cremation and funeral expenses,"Lost sole breadwinner in Trichy; family needs 5,000 for final funeral rites.",Other,Trichy,high,High,
+396,Artificial limb support,"Surya lost leg in Cuddalore accident; needs prosthetic limb costing 15,000 to walk again.",Other,Cuddalore,high,High,NGO Organization 13
+397,Cremation and funeral expenses,"Critical emergency involving surgery. Lost sole breadwinner in Trichy; family needs 2,500 for final funeral rites.",Other,Trichy,high,High,
+398,Vocational computer course fee,"Unemployed youth Vijay in Mysore wants to enroll in 2,500 digital skills training program.",Skill Development,Mysore,low,Normal,
+399,Emergency flood shelter aid,River overflow flooded our Coimbatore settlement; family of 3 displaced for 10 days.,Shelter,Coimbatore,high,Critical,NGO Organization 17
+400,House rent arrears assistance (Reminder),"Landlord threatening eviction in Villupuram within 10 days unless past rent of 2,500 is cleared. Please review this urgent matter again.",Shelter,Villupuram,high,High,
+401,Post-surgery recovery care,Patient Ramesh discharged from Coimbatore hospital needs special nutritional care and medicines.,Healthcare,Coimbatore,medium,High,
+402,Emergency flood shelter aid (Reminder),River overflow flooded our Coimbatore settlement; family of 3 displaced for 10 days. Please review this urgent matter again.,Shelter,Coimbatore,high,Critical,NGO Organization 17
+403,Different requirement: Homeless after devastating fire,"Additionally, we have another unrelated need: Accidental fire in {city} burnt down our dwelling; family of {count} is currently homeless.",Shelter,Villupuram,high,Critical,
+404,Post-surgery recovery care,Patient Divya discharged from Puducherry hospital needs special nutritional care and medicines.,Healthcare,Puducherry,medium,High,
+405,Automotive mechanic training,"Meena seeking sponsorship of 2,500 for technical apprenticeship at Chennai auto workshop.",Skill Development,Chennai,medium,Normal,NGO Organization 3
+406,Exam fee payment assistance,"School management threatened to bar Selvi (grade 8th) from semester exams unless 20,000 fee is cleared in Coimbatore.",Education,Coimbatore,high,High,
+407,Different requirement: Post-surgery recovery care,"Additionally, we have another unrelated need: Patient {name} discharged from {city} hospital needs special nutritional care and medicines.",Healthcare,Puducherry,medium,High,
+408,Emergency travel fare,"Need 10,000 train travel fare to return to native village in Bangalore after job failure.",Other,Bangalore,low,Normal,NGO Organization 9
+409,Artificial limb support (Reminder),"Surya lost leg in Cuddalore accident; needs prosthetic limb costing 15,000 to walk again. Please review this urgent matter again.",Other,Cuddalore,high,High,
+410,Temporary shelter for migrants,Displaced family of 4 in Cuddalore sleeping on streets for 7 days seeking shelter aid.,Shelter,Cuddalore,medium,High,
+411,Different requirement: Widow housing assistance,"Additionally, we have another unrelated need: Widowed mother with {count} children in {city} needs help repairing leaking roof before monsoon.",Shelter,Coimbatore,medium,Normal,NGO Organization 17
+412,Rapid submission 1 for Healthcare,Submitting multiple requests quickly regarding healthcare support requirement number 1.,Healthcare,Vellore,medium,Normal,
+413,Rapid submission 2 for Shelter,Submitting multiple requests quickly regarding shelter support requirement number 2.,Shelter,Cuddalore,medium,Normal,
+414,Rapid submission 3 for Healthcare,Submitting multiple requests quickly regarding healthcare support requirement number 3.,Healthcare,Salem,medium,Normal,NGO Organization 8
+415,Rapid submission 4 for Healthcare,Submitting multiple requests quickly regarding healthcare support requirement number 4.,Healthcare,Puducherry,medium,Normal,
+416,Vocational computer course fee,"Unemployed youth Selvi in Trichy wants to enroll in 20,000 digital skills training program.",Skill Development,Trichy,low,Normal,
+417,Cremation and funeral expenses (Reminder),"Critical emergency involving surgery. Lost sole breadwinner in Trichy; family needs 2,500 for final funeral rites. Please review this urgent matter again.",Other,Trichy,high,High,NGO Organization 2
+418,Typing and data entry class,"Job seeker Selvi in Mysore needs 15,000 for clerical skill certification exam.",Skill Development,Mysore,low,Normal,
+419,Dry ration support,Local flood in Coimbatore spoiled our pantry; seeking basic food rations for 3 people.,Food,Coimbatore,medium,High,
+420,Emergency debt relief,"Harassed by local lenders in Coimbatore for 2,500 emergency medical loan taken last month.",Other,Coimbatore,medium,High,NGO Organization 9
+421,Orphan student tuition support,"Guardian of Vijay passed away; seeking financial aid of 20,000 for Vellore college education fees.",Education,Vellore,high,Normal,
+422,Tuition fees support for Selvi,"My child Selvi studies in grade 9th at Chennai school. We are unable to pay 2,500 rupees tuition fee due this month.",Education,Chennai,medium,Normal,
+423,Diabetes medication for senior,"Elderly father in Puducherry requires insulin and regular diabetes medicines costing 20,000.",Healthcare,Puducherry,medium,High,NGO Organization 1
+424,Dental surgery financial aid,"Severe tooth infection requiring minor surgery costing 10,000 for Meena in Chennai.",Healthcare,Chennai,low,Normal,
+425,Emergency travel fare (Reminder),"Need 10,000 train travel fare to return to native village in Bangalore after job failure. Please review this urgent matter again.",Other,Bangalore,low,Normal,
+426,Rapid submission 1 for Skill Development,Submitting multiple requests quickly regarding skill development support requirement number 1.,Skill Development,Chennai,medium,Normal,NGO Organization 3
+427,Rapid submission 2 for Food,Submitting multiple requests quickly regarding food support requirement number 2.,Food,Salem,medium,Normal,
+428,Rapid submission 3 for Other,Submitting multiple requests quickly regarding other support requirement number 3.,Other,Coimbatore,medium,Normal,
+429,Rapid submission 4 for Shelter,Submitting multiple requests quickly regarding shelter support requirement number 4.,Shelter,Coimbatore,medium,Normal,NGO Organization 17
+430,Electrician course sponsorship,Arun in Salem looking for financial help to complete certified electrician diploma.,Skill Development,Salem,low,Normal,
+431,Milk and nutrition for infants,Single mother in Vellore cannot afford baby milk and nutritional supplements for 2 days.,Food,Vellore,medium,High,
+432,Laptop request for online classes,Anitha in grade 9th requires a basic laptop to attend online learning modules in Bangalore.,Education,Bangalore,medium,Normal,NGO Organization 9
+433,Shelter deposit support,"Need 7,500 advance deposit to secure safe rental room in Coimbatore after displacement.",Shelter,Coimbatore,low,Normal,
+434,Artificial limb support,"Deepa lost leg in Salem accident; needs prosthetic limb costing 20,000 to walk again.",Other,Salem,high,High,
+435,Milk and nutrition for infants (Reminder),Single mother in Vellore cannot afford baby milk and nutritional supplements for 2 days. Please review this urgent matter again.,Food,Vellore,medium,High,NGO Organization 14
+436,Hearing aid device assistance,"Critical emergency involving flood. Hearing impaired child Selvi in Trichy needs digital hearing aid device worth 7,500.",Other,Trichy,medium,Normal,
+437,Handicraft toolkit assistance,"Artisan family in Villupuram needs raw materials and tools worth 7,500 to restart craft work.",Skill Development,Villupuram,medium,Normal,
+438,Community kitchen food aid,Migrant laborer family of 4 stranded in Villupuram without kitchen rations for 7 days.,Food,Villupuram,medium,High,NGO Organization 16
+439,Dry ration support,Local flood in Salem spoiled our pantry; seeking basic food rations for 5 people.,Food,Salem,medium,High,
+440,Orphan student tuition support (Reminder),"Guardian of Vijay passed away; seeking financial aid of 20,000 for Vellore college education fees. Please review this urgent matter again.",Education,Vellore,high,Normal,
+441,Different requirement: Laptop request for online classes,"Additionally, we have another unrelated need: {name} in grade {grade} requires a basic laptop to attend online learning modules in {city}.",Education,Vellore,medium,Normal,NGO Organization 1
+442,Nutritional support for children,Orphanage caretaker in Chennai needs food supplies to feed 5 children this month.,Food,Chennai,medium,Normal,
+443,Electrician course sponsorship,Selvi in Salem looking for financial help to complete certified electrician diploma.,Skill Development,Salem,low,Normal,
+444,Kidney dialysis support,"Weekly dialysis sessions cost 20,000 for Selvi in Trichy hospital; seeking financial aid.",Healthcare,Trichy,high,Critical,NGO Organization 19
+445,Different requirement: Exam fee payment assistance,"Additionally, we have another unrelated need: School management threatened to bar {name} (grade {grade}) from semester exams unless {amount} fee is cleared in {city}.",Education,Chennai,high,High,
+446,Rapid submission 1 for Shelter,Submitting multiple requests quickly regarding shelter support requirement number 1.,Shelter,Villupuram,medium,Normal,
+447,Rapid submission 2 for Food,Submitting multiple requests quickly regarding food support requirement number 2.,Food,Trichy,medium,Normal,NGO Organization 7
+448,Rapid submission 3 for Skill Development,Submitting multiple requests quickly regarding skill development support requirement number 3.,Skill Development,Madurai,medium,Normal,
+449,Rapid submission 4 for Skill Development,Submitting multiple requests quickly regarding skill development support requirement number 4.,Skill Development,Coimbatore,medium,Normal,
+450,Roof repair after storm,"Heavy storm in Bangalore destroyed tin roof of our house; 20,000 needed for roof restoration.",Shelter,Bangalore,medium,High,NGO Organization 17
+451,Temporary shelter for migrants,Displaced family of 4 in Madurai sleeping on streets for 5 days seeking shelter aid.,Shelter,Madurai,medium,High,
+452,Diabetes medication for senior,"Elderly father in Puducherry requires insulin and regular diabetes medicines costing 2,500.",Healthcare,Puducherry,medium,High,
+453,Wall collapse repair,"Monsoon rains caused bedroom wall collapse in Cuddalore house; 20,000 required to rebuild.",Shelter,Cuddalore,medium,High,NGO Organization 12
+454,Wall collapse repair,"Monsoon rains caused bedroom wall collapse in Chennai house; 10,000 required to rebuild.",Shelter,Chennai,medium,High,
+455,Electrician course sponsorship (Reminder),Selvi in Salem looking for financial help to complete certified electrician diploma. Please review this urgent matter again.,Skill Development,Salem,low,Normal,
+456,Tailoring machine for livelihood,"Critical emergency involving starving. Widow in Coimbatore requesting a sewing machine worth 15,000 to earn independent income.",Skill Development,Coimbatore,medium,Normal,NGO Organization 5
+457,Temporary shelter for migrants (Reminder),Displaced family of 4 in Madurai sleeping on streets for 5 days seeking shelter aid. Please review this urgent matter again.,Shelter,Madurai,medium,High,
+458,Emergency travel fare,"Need 2,500 train travel fare to return to native village in Salem after job failure.",Other,Salem,low,Normal,
+459,Kidney dialysis support,"Weekly dialysis sessions cost 20,000 for Divya in Tindivanam hospital; seeking financial aid.",Healthcare,Tindivanam,high,Critical,NGO Organization 1
+460,Cremation and funeral expenses,"Lost sole breadwinner in Bangalore; family needs 5,000 for final funeral rites.",Other,Bangalore,high,High,
+461,Milk and nutrition for infants,Single mother in Villupuram cannot afford baby milk and nutritional supplements for 5 days.,Food,Villupuram,medium,High,
+462,Dental surgery financial aid,"Severe tooth infection requiring minor surgery costing 2,500 for Meena in Cuddalore.",Healthcare,Cuddalore,low,Normal,NGO Organization 1
+463,Cremation and funeral expenses,"Lost sole breadwinner in Madurai; family needs 20,000 for final funeral rites.",Other,Madurai,high,High,
+464,Board exam coaching fees,"Financial hardship in Tindivanam preventing Meena from paying 5,000 coaching fees for 12th board exams.",Education,Tindivanam,high,Normal,
+465,Widow housing assistance,Widowed mother with 6 children in Mysore needs help repairing leaking roof before monsoon.,Shelter,Mysore,medium,Normal,NGO Organization 17
+466,Temporary shelter for migrants,Displaced family of 3 in Mysore sleeping on streets for 3 days seeking shelter aid.,Shelter,Mysore,medium,High,
+467,Dry ration support,Local flood in Vellore spoiled our pantry; seeking basic food rations for 3 people.,Food,Vellore,medium,High,
+468,Handicraft toolkit assistance,"Artisan family in Chennai needs raw materials and tools worth 2,500 to restart craft work.",Skill Development,Chennai,medium,Normal,NGO Organization 3
+469,Automotive mechanic training,"Surya seeking sponsorship of 7,500 for technical apprenticeship at Villupuram auto workshop.",Skill Development,Villupuram,medium,Normal,
+470,Cremation and funeral expenses (Reminder),"Lost sole breadwinner in Madurai; family needs 20,000 for final funeral rites. Please review this urgent matter again.",Other,Madurai,high,High,
+471,Different requirement: Artificial limb support,"Additionally, we have another unrelated need: {name} lost leg in {city} accident; needs prosthetic limb costing {amount} to walk again.",Other,Madurai,high,High,NGO Organization 2
+472,Widow housing assistance,Widowed mother with 6 children in Cuddalore needs help repairing leaking roof before monsoon.,Shelter,Cuddalore,medium,Normal,
+473,Cremation and funeral expenses,"Lost sole breadwinner in Coimbatore; family needs 20,000 for final funeral rites.",Other,Coimbatore,high,High,
+474,Temporary shelter for migrants,Displaced family of 3 in Trichy sleeping on streets for 5 days seeking shelter aid.,Shelter,Trichy,medium,High,NGO Organization 6
+475,Shelter deposit support,"Need 10,000 advance deposit to secure safe rental room in Madurai after displacement.",Shelter,Madurai,low,Normal,
+476,Wall collapse repair,"Monsoon rains caused bedroom wall collapse in Mysore house; 20,000 required to rebuild.",Shelter,Mysore,medium,High,
+477,Severe starvation emergency,Elderly residents in Madurai slum are starving with absolutely no food supplies left for 5 days.,Food,Madurai,high,Critical,NGO Organization 6
+478,Different requirement: Shelter deposit support,"Additionally, we have another unrelated need: Need {amount} advance deposit to secure safe rental room in {city} after displacement.",Shelter,Trichy,low,Normal,
+479,Rapid submission 1 for Food,Submitting multiple requests quickly regarding food support requirement number 1.,Food,Chennai,medium,Normal,
+480,Rapid submission 2 for Education,Submitting multiple requests quickly regarding education support requirement number 2.,Education,Mysore,medium,Normal,NGO Organization 9
+481,Uniform and shoes aid,"Required school uniform and shoes for Deepa, studying in 8th grade at Villupuram municipal school.",Education,Villupuram,low,Normal,
+482,Rapid submission 3 for Shelter,Submitting multiple requests quickly regarding shelter support requirement number 3.,Shelter,Mysore,medium,Normal,
+483,Rapid submission 4 for Other,Submitting multiple requests quickly regarding other support requirement number 4.,Other,Puducherry,medium,Normal,NGO Organization 13
+484,Different requirement: Temporary shelter for migrants,"Additionally, we have another unrelated need: Displaced family of {count} in {city} sleeping on streets for {days} days seeking shelter aid.",Shelter,Mysore,medium,High,
+485,Kidney dialysis support,"Weekly dialysis sessions cost 10,000 for Meena in Salem hospital; seeking financial aid.",Healthcare,Salem,high,Critical,
+486,Board exam coaching fees,"Financial hardship in Salem preventing Surya from paying 20,000 coaching fees for 12th board exams.",Education,Salem,high,Normal,NGO Organization 7
+487,Diabetes medication for senior,"Elderly father in Puducherry requires insulin and regular diabetes medicines costing 10,000.",Healthcare,Puducherry,medium,High,
+488,Roof repair after storm,"Heavy storm in Madurai destroyed tin roof of our house; 20,000 needed for roof restoration.",Shelter,Madurai,medium,High,
+489,Uniform and shoes aid,"Required school uniform and shoes for Meena, studying in 8th grade at Trichy municipal school.",Education,Trichy,low,Normal,NGO Organization 7
+490,Different requirement: Automotive mechanic training,"Additionally, we have another unrelated need: {name} seeking sponsorship of {amount} for technical apprenticeship at {city} auto workshop.",Skill Development,Villupuram,medium,Normal,
+491,Electrician course sponsorship,Critical emergency involving accident. Vijay in Salem looking for financial help to complete certified electrician diploma.,Skill Development,Salem,low,Normal,
+492,Exam fee payment assistance,"School management threatened to bar Divya (grade 11th) from semester exams unless 15,000 fee is cleared in Tindivanam.",Education,Tindivanam,high,High,NGO Organization 16
+493,Wheelchair for disabled member,"Surya in Bangalore is physically disabled and needs an orthopedic wheelchair costing 2,500.",Other,Bangalore,medium,Normal,
+494,Kidney dialysis support,"Weekly dialysis sessions cost 15,000 for Vijay in Bangalore hospital; seeking financial aid.",Healthcare,Bangalore,high,Critical,
+495,Post-surgery recovery care,Patient Deepa discharged from Mysore hospital needs special nutritional care and medicines.,Healthcare,Mysore,medium,High,NGO Organization 10
+496,Uniform and shoes aid,"Required school uniform and shoes for Selvi, studying in 8th grade at Villupuram municipal school.",Education,Villupuram,low,Normal,
+497,Emergency travel fare,"Need 20,000 train travel fare to return to native village in Tindivanam after job failure.",Other,Tindivanam,low,Normal,
+498,Widow housing assistance,Widowed mother with 3 children in Bangalore needs help repairing leaking roof before monsoon.,Shelter,Bangalore,medium,Normal,NGO Organization 17
+499,Mobile repair training course,"Young graduate in Puducherry needs 20,000 course fee for cell phone hardware repair training.",Skill Development,Puducherry,low,Normal,
+500,Heart attack operation aid,"Critical emergency involving flood. Anitha suffered a severe heart attack in Tindivanam; immediate surgery deposit of 7,500 required.",Healthcare,Tindivanam,high,Critical,
+501,Tailoring machine for livelihood,"Widow in Chennai requesting a sewing machine worth 20,000 to earn independent income.",Skill Development,Chennai,medium,Normal,NGO Organization 3
+502,Tuition fees support for Arun,"Critical emergency involving starving. My child Arun studies in grade 8th at Chennai school. We are unable to pay 20,000 rupees tuition fee due this month.",Education,Chennai,medium,Normal,
+503,Board exam coaching fees,"Financial hardship in Bangalore preventing Ramesh from paying 15,000 coaching fees for 12th board exams.",Education,Bangalore,high,Normal,
+504,Dental surgery financial aid,"Severe tooth infection requiring minor surgery costing 10,000 for Surya in Trichy.",Healthcare,Trichy,low,Normal,NGO Organization 19
+505,Daily meals for family of 5,Our family of 5 members in Cuddalore has been surviving on single meals for 2 days due to unemployment.,Food,Cuddalore,medium,High,
+506,Dental surgery financial aid,"Severe tooth infection requiring minor surgery costing 15,000 for Priya in Bangalore.",Healthcare,Bangalore,low,Normal,
+507,Uniform and shoes aid,"Required school uniform and shoes for Selvi, studying in 8th grade at Mysore municipal school.",Education,Mysore,low,Normal,NGO Organization 9
+508,Rapid submission 1 for Shelter,Submitting multiple requests quickly regarding shelter support requirement number 1.,Shelter,Coimbatore,medium,Normal,
+509,Rapid submission 2 for Other,Submitting multiple requests quickly regarding other support requirement number 2.,Other,Bangalore,medium,Normal,
+510,Rapid submission 3 for Food,Submitting multiple requests quickly regarding food support requirement number 3.,Food,Villupuram,medium,Normal,NGO Organization 16
+511,Rapid submission 4 for Shelter,Submitting multiple requests quickly regarding shelter support requirement number 4.,Shelter,Madurai,medium,Normal,
+512,Orphan student tuition support,"Guardian of Anitha passed away; seeking financial aid of 15,000 for Salem college education fees.",Education,Salem,high,Normal,
+513,Typing and data entry class,"Job seeker Karthik in Cuddalore needs 5,000 for clerical skill certification exam.",Skill Development,Cuddalore,low,Normal,NGO Organization 13
+514,Different requirement: Emergency surgery funds for {name},"Additionally, we have another unrelated need: {name} met with a terrible accident in {city} and doctors scheduled emergency surgery today in ICU.",Healthcare,Mysore,high,Critical,
+515,Cremation and funeral expenses,"Lost sole breadwinner in Puducherry; family needs 5,000 for final funeral rites.",Other,Puducherry,high,High,
+516,Dry ration support,Local flood in Chennai spoiled our pantry; seeking basic food rations for 6 people.,Food,Chennai,medium,High,NGO Organization 4
+517,Daily meals for family of 5 (Reminder),Our family of 5 members in Cuddalore has been surviving on single meals for 2 days due to unemployment. Please review this urgent matter again.,Food,Cuddalore,medium,High,
+518,Dental surgery financial aid,"Severe tooth infection requiring minor surgery costing 10,000 for Priya in Tindivanam.",Healthcare,Tindivanam,low,Normal,
+519,Emergency travel fare (Reminder),"Need 20,000 train travel fare to return to native village in Tindivanam after job failure. Please review this urgent matter again.",Other,Tindivanam,low,Normal,NGO Organization 13
+520,Tailoring machine for livelihood (Reminder),"Widow in Chennai requesting a sewing machine worth 20,000 to earn independent income. Please review this urgent matter again.",Skill Development,Chennai,medium,Normal,

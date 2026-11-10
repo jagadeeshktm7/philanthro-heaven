@@ -1,0 +1,47 @@
+==================================================
+PHILANTHRO HEAVEN — AI EVALUATION REPORT
+==================================================
+
+1. DUPLICATE DETECTION (Rows used: 145)
+   TP: 15 | FP: 6 | FN: 0 | TN: 124
+   Precision: 0.7143 | Recall: 1.0000 | F1-score: 0.8333
+   Confusion Matrix (Rows = True, Columns = System):
+                Predicted 0    Predicted 1
+   Actual 0     124            6             
+   Actual 1     0              15            
+
+2. SUSPICIOUS DETECTION (Rows used: 145)
+   TP: 6 | FP: 0 | FN: 4 | TN: 135
+   Precision: 1.0000 | Recall: 0.6000 | F1-score: 0.7500
+   Confusion Matrix (Rows = True, Columns = System):
+                Predicted 0    Predicted 1
+   Actual 0     135            0             
+   Actual 1     4              6             
+
+3. PRIORITY EVALUATION (Rows used: 145)
+   System Accuracy: 0.5310 | Macro F1: 0.4933
+   Per-Class Metrics:
+     - Critical : Precision=0.3810, Recall=0.6667, F1=0.4848
+     - High     : Precision=0.3404, Recall=0.3019, F1=0.3200
+     - Normal   : Precision=0.6883, Recall=0.6625, F1=0.6752
+
+   3x3 Confusion Matrix (Rows = True, Columns = System):
+               Pred Critical   Pred High      Pred Normal
+   Actual Critical  8              4              0             
+   Actual High      13             16             24            
+   Actual Normal    0              27             53            
+
+   Baselines:
+     (a) Always Predict Normal : Accuracy = 0.5517, Macro F1 = 0.2370
+     (b) Urgency Field Only    : Accuracy = 0.5448, Macro F1 = 0.5341
+
+4. MATCHING EVALUATION (Rows used: 48)
+   System Top-1 Accuracy: 0.5417 (26/48)
+   System Top-3 Accuracy: 0.8750 (42/48)
+   Baselines (Top-1 Accuracy):
+     (a) Nearest NGO (All Verified)          : 0.3125 (15/48)
+     (b) Nearest NGO (Matching Category Causes): 0.8125 (39/48)
+
+==================================================
+EVALUATION COMPLETE
+==================================================

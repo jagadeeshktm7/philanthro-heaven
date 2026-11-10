@@ -69,10 +69,14 @@ def calculate_priority(title, description, category, urgency):
 
 def check_duplicate(request):
     """Check if the request is a duplicate of the beneficiary's recent requests (last 30 days)."""
-    thirty_days_ago = timezone.now() - timedelta(days=30)
+    # Use the time of the request itself (not "now"), and only look at EARLIER requests.
+    # For a brand new request this is the same as before, but it also works for old data.
+    request_time = request.created_at or timezone.now()
+    thirty_days_before = request_time - timedelta(days=30)
     other_requests = request.__class__.objects.filter(
         beneficiary=request.beneficiary,
-        created_at__gte=thirty_days_ago
+        created_at__gte=thirty_days_before,
+        created_at__lte=request_time
     ).exclude(id=request.id)
 
     current_text = (request.title + " " + request.description).lower()
@@ -87,10 +91,13 @@ def check_duplicate(request):
 
 def check_suspicious(request):
     """Check if the beneficiary made more than 3 requests in the last 24 hours."""
-    twenty_four_hours_ago = timezone.now() - timedelta(hours=24)
+    # Count the requests made in the 24 hours BEFORE this request (uses the request's own time)
+    request_time = request.created_at or timezone.now()
+    twenty_four_hours_before = request_time - timedelta(hours=24)
     recent_count = request.__class__.objects.filter(
         beneficiary=request.beneficiary,
-        created_at__gte=twenty_four_hours_ago
+        created_at__gte=twenty_four_hours_before,
+        created_at__lte=request_time
     ).exclude(id=request.id).count()
 
     return recent_count >= 3

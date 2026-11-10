@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from core.ai_engine import haversine_km, calculate_priority, check_duplicate, get_top_matches
 from core.models import HelpRequest, NGOProfile
 from core.cities import CITIES
+from core.management.commands.evaluate_ai import calculate_binary_metrics, calculate_multiclass_metrics
 
 User = get_user_model()
 
@@ -95,3 +96,29 @@ class AIEngineTestCase(TestCase):
         # The Health NGO must be in top matches, and Education NGO must not be in top matches
         self.assertIn(health_ngo.id, top_ngo_ids)
         self.assertNotIn(edu_ngo.id, top_ngo_ids)
+
+    def test_evaluation_binary_metrics_helper(self):
+        # Tiny example where answers can be checked by hand
+        # y_true = [1, 1, 0, 0]
+        # y_pred = [1, 0, 0, 1]
+        # TP = 1, FN = 1, FP = 1, TN = 1
+        y_true = [1, 1, 0, 0]
+        y_pred = [1, 0, 0, 1]
+        tp, fp, fn, tn, prec, rec, f1 = calculate_binary_metrics(y_true, y_pred)
+        self.assertEqual(tp, 1)
+        self.assertEqual(fp, 1)
+        self.assertEqual(fn, 1)
+        self.assertEqual(tn, 1)
+        self.assertAlmostEqual(prec, 0.5)
+        self.assertAlmostEqual(rec, 0.5)
+        self.assertAlmostEqual(f1, 0.5)
+
+    def test_evaluation_multiclass_metrics_helper(self):
+        # Tiny 3-class example: classes = ['Critical', 'High', 'Normal']
+        y_true = ['Critical', 'High', 'Normal', 'Critical']
+        y_pred = ['Critical', 'Normal', 'Normal', 'High']
+        acc, macro_f1, cm, class_metrics = calculate_multiclass_metrics(y_true, y_pred, ['Critical', 'High', 'Normal'])
+        self.assertEqual(acc, 0.5) # 2 correct out of 4
+        self.assertIn('Critical', class_metrics)
+        self.assertIn('High', class_metrics)
+        self.assertIn('Normal', class_metrics)
