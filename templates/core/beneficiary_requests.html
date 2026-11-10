@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="dashboard-header">
+        <div class="dashboard-welcome">
+            <h1>My Help Requests</h1>
+            <p>Track the status of your submitted assistance requests.</p>
+        </div>
+        <a href="{% url 'new_help_request' %}" class="btn-primary" style="text-decoration: none;">+ New Request</a>
+    </div>
+
+    <div class="dashboard-card">
+        {% if request_data %}
+            <ul class="placeholder-list">
+                {% for item in request_data %}
+                    <li class="placeholder-item" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div class="placeholder-info" style="max-width: 65%;">
+                            <h4>{{ item.request.title }}</h4>
+                            <p><strong>Category:</strong> {{ item.request.category }} | <strong>City:</strong> {{ item.request.city }} | <strong>Urgency:</strong> {{ item.request.urgency|title }}</p>
+                            
+                            <!-- Priority label badge -->
+                            <p style="margin-top: 6px;">
+                                <span style="padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: {% if item.request.priority_label == 'Critical' %}rgba(239, 68, 68, 0.2); color: #f87171;{% elif item.request.priority_label == 'High' %}rgba(249, 115, 22, 0.2); color: #fb923c;{% else %}rgba(59, 130, 246, 0.2); color: #60a5fa;{% endif %}">
+                                    {{ item.request.priority_label|default:"Normal" }}
+                                </span>
+                                {% if item.request.is_duplicate %}
+                                    <span style="padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(234, 179, 8, 0.2); color: #facc15; margin-left: 5px;">Duplicate</span>
+                                {% endif %}
+                            </p>
+
+                            <!-- Top Matched NGOs -->
+                            {% if item.top_ngo_names %}
+                                <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 6px;">
+                                    <strong>Top Matched NGOs:</strong> {{ item.top_ngo_names|join:", " }}
+                                </p>
+                            {% endif %}
+                            
+                            <p style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">Submitted on: {{ item.request.created_at|date:"M d, Y" }}</p>
+                        </div>
+                        <div>
+                            <span style="padding: 6px 14px; border-radius: 99px; font-size: 0.85rem; font-weight: 600; background: {% if item.request.status == 'pending' %}rgba(234, 179, 8, 0.15); color: #eab308;{% elif item.request.status == 'accepted' %}rgba(59, 130, 246, 0.15); color: #60a5fa;{% elif item.request.status == 'completed' %}rgba(34, 197, 94, 0.15); color: #4ade80;{% else %}rgba(239, 68, 68, 0.15); color: #f87171;{% endif %}">
+                                {{ item.request.status|title }}
+                            </span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align: center; color: var(--text-muted); padding: 20px;">You have not submitted any help requests yet.</p>
+        {% endif %}
+    </div>
+
+    <p style="text-align: center; margin-top: 25px;">
+        <a href="{% url 'beneficiary_dashboard' %}" style="color: var(--light-primary); text-decoration: none;">← Back to Beneficiary Dashboard</a>
+    </p>
+</div>
+{% endblock %}

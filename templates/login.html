@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/lamp.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page-wrapper">
+
+    <!-- Sound Control Button -->
+    <button id="soundToggleBtn" class="sound-toggle-btn" title="Toggle Sound">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    </button>
+
+    <!-- Lighting Color Palette -->
+    <div class="color-picker-palette">
+        <button class="color-btn active" data-color="amber" style="background-color: #FFAB3D;" title="Amber Warm Light"></button>
+        <button class="color-btn" data-color="cyan" style="background-color: #00F0FF;" title="Cyber Cyan Light"></button>
+        <button class="color-btn" data-color="rose" style="background-color: #FF3385;" title="Sunset Rose Light"></button>
+        <button class="color-btn" data-color="mint" style="background-color: #00E676;" title="Emerald Mint Light"></button>
+        <button class="color-btn" data-color="moonlight" style="background-color: #D8E5FF;" title="Cool Moonlight"></button>
+    </div>
+
+    <!-- Realistic SVG Desk Lamp -->
+    <div class="lamp-stage">
+        <div id="lampTooltip" class="lamp-tooltip">Pull the string to turn on the light</div>
+        <svg id="lampSvg" class="lamp-svg" viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="beamGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="var(--light-primary)" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="var(--light-primary)" stop-opacity="0.0"/>
+                </linearGradient>
+                <radialGradient id="bulbGlowGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="var(--light-primary)" stop-opacity="1"/>
+                    <stop offset="100%" stop-color="var(--light-primary)" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
+
+            <!-- Light Beam & Bulb Glow (Revealed when Lamp is ON) -->
+            <polygon class="light-beam" points="135,165 30,360 230,360"/>
+            <circle class="bulb-glow" cx="130" cy="155" r="40"/>
+
+            <!-- Lamp Base -->
+            <ellipse cx="130" cy="350" rx="45" ry="10" fill="#334155"/>
+            <path d="M115 350 L125 310 L135 310 L145 350 Z" fill="#64748b"/>
+            <circle cx="130" cy="310" r="8" fill="#94a3b8"/>
+
+            <!-- Articulated Lower Arm -->
+            <g class="lamp-arm">
+                <line x1="130" y1="310" x2="180" y2="210" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+                <!-- Brass Joint -->
+                <circle cx="180" cy="210" r="7" fill="#f59e0b"/>
+                <circle cx="180" cy="210" r="3" fill="#b45309"/>
+            </g>
+
+            <!-- Articulated Upper Arm -->
+            <g class="lamp-arm">
+                <line x1="180" y1="210" x2="135" y2="145" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+                <!-- Brass Joint -->
+                <circle cx="135" cy="145" r="7" fill="#f59e0b"/>
+            </g>
+
+            <!-- Lamp Head & Shade -->
+            <g class="lamp-head">
+                <!-- Shade Outer -->
+                <path d="M100 135 L160 135 L185 175 L75 175 Z" fill="#475569"/>
+                <!-- Shade Reflector Rim -->
+                <ellipse cx="130" cy="175" rx="55" ry="12" fill="#64748b"/>
+                <!-- Lamp Bulb -->
+                <circle class="lamp-bulb" cx="130" cy="155" r="10"/>
+            </g>
+
+            <!-- Interactive Pull Cord -->
+            <g id="pullGroup" class="pull-cord-group">
+                <line id="cordLine" x1="165" y1="160" x2="165" y2="200" class="cord-line"/>
+                <circle id="cordBead" cx="165" cy="200" r="6" class="cord-bead"/>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Fallback Turn On Button for Accessibility / Mobile -->
+    <div class="fallback-btn-container">
+        <button id="fallbackToggle" class="fallback-btn">💡 Turn On Light / Toggle Switch</button>
+    </div>
+
+    <!-- Glassmorphism Authentication Container -->
+    <div class="auth-container glass-card">
+        <!-- Auth Tabs Switcher -->
+        <div class="auth-tabs">
+            <button id="tabSignIn" class="auth-tab active">Sign In</button>
+            <button id="tabSignUp" class="auth-tab">Sign Up</button>
+        </div>
+
+        <!-- Sign In Panel (Login Form) -->
+        <div id="panelSignIn" class="auth-form-panel active">
+            <form method="post" action="{% url 'login' %}" class="auth-form">
+                {% csrf_token %}
+                {% if form.non_field_errors and not register_form.errors %}
+                    <div style="color: #f87171; background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; font-size: 0.9rem;">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                <p>
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" class="form-control" placeholder="Enter your username">
+                </p>
+                <p>
+                    <label for="id_password">Password</label>
+                    <input type="password" name="password" autocomplete="current-password" required id="id_password" class="form-control" placeholder="Enter your password">
+                </p>
+
+                <button type="submit" class="auth-submit-btn">Sign In to Platform</button>
+            </form>
+        </div>
+
+        <!-- Sign Up Panel (Register Form) -->
+        <div id="panelSignUp" class="auth-form-panel">
+            <form method="post" action="{% url 'register' %}" class="auth-form">
+                {% csrf_token %}
+                {% if register_form.non_field_errors %}
+                    <div style="color: #f87171; background: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; font-size: 0.9rem;">
+                        {{ register_form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                {% for field in register_form %}
+                    <p>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <span class="errorlist">{{ field.errors.0 }}</span>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+
+                <button type="submit" class="auth-submit-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/lamp.js' %}"></script>
+{% endblock %}

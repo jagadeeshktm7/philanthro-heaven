@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-badge">Charity & Community Platform</div>
+    
+    <h1 class="hero-title">
+        Every Act of Kindness Creates a <span>Better Tomorrow</span>
+    </h1>
+    
+    <p class="hero-subtitle">
+        Connecting donors, trusted NGOs, and people in need through transparent and meaningful charity.
+    </p>
+
+    <div class="hero-buttons">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn-primary">Start Donating & Joining</a>
+            <a href="{% url 'register' %}" class="btn-secondary">Create Account</a>
+        {% else %}
+            {% if user.role == 'donor' %}
+                <a href="{% url 'donor_dashboard' %}" class="btn-primary">Go to Donor Dashboard</a>
+            {% elif user.role == 'ngo' %}
+                <a href="{% url 'ngo_dashboard' %}" class="btn-primary">Go to NGO Dashboard</a>
+            {% elif user.role == 'beneficiary' %}
+                <a href="{% url 'beneficiary_dashboard' %}" class="btn-primary">Go to Beneficiary Dashboard</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- Feature Cards Section -->
+<section class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3>DONORS</h3>
+        <p>Support meaningful causes, track your charitable contributions, and bring hope to communities in need.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <h3>NGOs</h3>
+        <p>Manage charitable campaigns, coordinate relief efforts, and build trusted relationships with generous donors.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">✨</div>
+        <h3>BENEFICIARIES</h3>
+        <p>Request assistance securely, connect with verified NGOs, and receive timely support when it matters most.</p>
+    </div>
+</section>
+{% endblock %}

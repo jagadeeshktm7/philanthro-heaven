@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="text-align: center; padding: 50px 20px;">
+    <h2>Verification Pending</h2>
+    <div style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.3); padding: 25px; border-radius: 16px; margin: 25px 0;">
+        <p style="font-size: 1.1rem; color: #facc15; font-weight: 600;">Your NGO is waiting for admin verification</p>
+        <p style="color: var(--text-muted); margin-top: 10px;">Once an administrator verifies your NGO profile in the admin panel, you will gain full access to view and accept help requests.</p>
+    </div>
+    <a href="{% url 'ngo_dashboard' %}" class="btn-primary" style="text-decoration: none;">Back to NGO Dashboard</a>
+</div>
+{% endblock %}

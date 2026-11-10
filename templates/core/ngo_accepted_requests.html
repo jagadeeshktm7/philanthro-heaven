@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="dashboard-header">
+        <div class="dashboard-welcome">
+            <h1>Accepted Help Requests</h1>
+            <p>Manage requests you have accepted and mark them completed when finished.</p>
+        </div>
+        <a href="{% url 'ngo_open_requests' %}" class="btn-secondary" style="text-decoration: none;">View Open Requests</a>
+    </div>
+
+    <div class="dashboard-card">
+        {% if accepted_requests %}
+            <ul class="placeholder-list">
+                {% for req in accepted_requests %}
+                    <li class="placeholder-item" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                        <div class="placeholder-info" style="max-width: 70%;">
+                            <h4>{{ req.title }}</h4>
+                            <p>{{ req.description }}</p>
+                            <p style="font-size: 0.85rem; color: #64748b; margin-top: 5px;">
+                                <strong>Category:</strong> {{ req.category }} | <strong>City:</strong> {{ req.city }} | <strong>Urgency:</strong> {{ req.urgency|title }} | <strong>Beneficiary:</strong> {{ req.beneficiary.username }}
+                            </p>
+                        </div>
+                        <div>
+                            <!-- Mark completed via POST form -->
+                            <form method="post" action="{% url 'ngo_complete_request' req.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-primary" style="padding: 8px 18px; font-size: 0.85rem; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">Mark Completed</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align: center; color: var(--text-muted); padding: 20px;">You have no currently accepted requests.</p>
+        {% endif %}
+    </div>
+
+    <p style="text-align: center; margin-top: 25px;">
+        <a href="{% url 'ngo_dashboard' %}" style="color: var(--light-primary); text-decoration: none;">← Back to NGO Dashboard</a>
+    </p>
+</div>
+{% endblock %}

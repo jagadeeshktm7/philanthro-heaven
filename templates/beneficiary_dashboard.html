@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="dashboard-welcome">
+            <h1>Beneficiary Dashboard: {{ user.username }}</h1>
+            <p>Access community assistance, submit support requests, and connect with verified NGOs.</p>
+        </div>
+        <div class="dashboard-badge">Beneficiary Role</div>
+    </div>
+
+    <!-- Beneficiary Quick Action Links -->
+    <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+        <a href="{% url 'new_help_request' %}" class="btn-primary">Create New Help Request</a>
+        <a href="{% url 'beneficiary_requests' %}" class="btn-secondary">View My Requests</a>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Profile Overview Card -->
+        <div class="dashboard-card">
+            <h3>👤 Beneficiary Profile</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px; color: var(--text-muted);">
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email|default:"Not provided" }}</p>
+                <p><strong>City:</strong> {{ user.city|default:"Not specified" }}</p>
+                <p><strong>Phone:</strong> {{ user.phone|default:"Not specified" }}</p>
+            </div>
+        </div>
+
+        <!-- Request Status Card -->
+        <div class="dashboard-card">
+            <h3>📌 Support Status</h3>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" style="color: #60a5fa;">Active</div>
+                    <div class="stat-label">Request Status</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Assistance Pending</div>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center;">We are here to support you.</p>
+        </div>
+    </div>
+
+    <!-- Available Support Section -->
+    <div class="dashboard-card" style="margin-top: 30px;">
+        <h3>🤝 Available Community Support</h3>
+        <ul class="placeholder-list">
+            <li class="placeholder-item">
+                <div class="placeholder-info">
+                    <h4>Food Relief & Grocery Support Program</h4>
+                    <p>Provided by Hope Worldwide NGO • Available in your region</p>
+                </div>
+                <a href="{% url 'new_help_request' %}" class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem; text-decoration: none;">Request Support</a>
+            </li>
+            <li class="placeholder-item">
+                <div class="placeholder-info">
+                    <h4>Medical Consultation & Pharmacy Aid</h4>
+                    <p>Provided by Care Foundation</p>
+                </div>
+                <a href="{% url 'new_help_request' %}" class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem; text-decoration: none;">Request Support</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

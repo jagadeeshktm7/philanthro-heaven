@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="dashboard-welcome">
+            <h1>NGO Portal: {{ user.username }}</h1>
+            <p>Coordinate relief operations, manage campaigns, and review beneficiary requests.</p>
+        </div>
+        <div class="dashboard-badge">NGO Organization</div>
+    </div>
+
+    <!-- NGO Quick Action Links -->
+    <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+        <a href="{% url 'ngo_profile' %}" class="btn-primary">Manage NGO Profile</a>
+        <a href="{% url 'ngo_open_requests' %}" class="btn-primary">Open Help Requests</a>
+        <a href="{% url 'ngo_accepted_requests' %}" class="btn-secondary">Accepted Requests</a>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Profile Overview Card -->
+        <div class="dashboard-card">
+            <h3>🏛️ NGO Profile</h3>
+            {% if user.ngoprofile %}
+                <div style="display: flex; flex-direction: column; gap: 12px; color: var(--text-muted);">
+                    <p><strong>NGO Name:</strong> {{ user.ngoprofile.ngo_name }}</p>
+                    <p><strong>Reg Number:</strong> {{ user.ngoprofile.registration_number }}</p>
+                    <p><strong>City:</strong> {{ user.ngoprofile.city }}</p>
+                    <p><strong>Status:</strong> {% if user.ngoprofile.is_verified %}Verified{% else %}Waiting for admin verification{% endif %}</p>
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: 20px;">
+                    <p style="color: #f87171; font-weight: 600; margin-bottom: 15px;">Complete your NGO profile first</p>
+                    <a href="{% url 'ngo_profile' %}" class="btn-primary" style="text-decoration: none; padding: 10px 20px;">Create Profile Now</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Management Overview Card -->
+        <div class="dashboard-card">
+            <h3>📈 Operations Summary</h3>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Active Campaigns</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Beneficiaries Aided</div>
+                </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center;">Transparency verified and secure.</p>
+        </div>
+    </div>
+
+    <!-- Beneficiary Requests Section -->
+    <div class="dashboard-card" style="margin-top: 30px;">
+        <h3>📋 Incoming Beneficiary Requests</h3>
+        <ul class="placeholder-list">
+            <li class="placeholder-item">
+                <div class="placeholder-info">
+                    <h4>Medical Emergency Support</h4>
+                    <p>Requested by Community Member • City: {{ user.city|default:"Local" }}</p>
+                </div>
+                <a href="{% url 'ngo_open_requests' %}" class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem; text-decoration: none;">View Open Requests</a>
+            </li>
+            <li class="placeholder-item">
+                <div class="placeholder-info">
+                    <h4>Educational Supplies Assistance</h4>
+                    <p>Requested by Local School Group</p>
+                </div>
+                <a href="{% url 'ngo_open_requests' %}" class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem; text-decoration: none;">View Open Requests</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

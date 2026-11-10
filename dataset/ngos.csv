@@ -1,0 +1,21 @@
+ngo_name,city,causes,rating
+NGO Organization 1,Tindivanam,"Education,Other,Healthcare",3.1
+NGO Organization 2,Villupuram,Other,2.8
+NGO Organization 3,Chennai,"Skill Development,Education,Shelter",2.6
+NGO Organization 4,Puducherry,Food,3.1
+NGO Organization 5,Coimbatore,"Education,Skill Development,Food",4.3
+NGO Organization 6,Madurai,"Skill Development,Shelter,Food",3.6
+NGO Organization 7,Trichy,"Education,Food",4.2
+NGO Organization 8,Salem,"Healthcare,Food",3.0
+NGO Organization 9,Bangalore,"Education,Other",3.4
+NGO Organization 10,Mysore,"Healthcare,Skill Development",3.2
+NGO Organization 11,Vellore,Other,3.6
+NGO Organization 12,Cuddalore,Shelter,2.7
+NGO Organization 13,Tindivanam,"Other,Skill Development",4.7
+NGO Organization 14,Villupuram,"Skill Development,Food",4.3
+NGO Organization 15,Chennai,Other,3.1
+NGO Organization 16,Puducherry,"Education,Food",4.7
+NGO Organization 17,Coimbatore,"Healthcare,Shelter",4.1
+NGO Organization 18,Madurai,"Food,Healthcare",3.4
+NGO Organization 19,Trichy,"Healthcare,Education,Food",3.8
+NGO Organization 20,Salem,Food,3.7

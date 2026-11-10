@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>New Help Request</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div style="color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 4px;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% for field in form %}
+            <p>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span style="color: #721c24; font-size: 14px; margin-top: 5px;">{{ field.errors.0 }}</span>
+                {% endif %}
+            </p>
+        {% endfor %}
+
+        <button type="submit">Submit Request</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 15px;">
+        <a href="{% url 'beneficiary_dashboard' %}">Back to Dashboard</a>
+    </p>
+</div>
+{% endblock %}
