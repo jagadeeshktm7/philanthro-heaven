@@ -19,19 +19,31 @@ class Command(BaseCommand):
         # Set random seed for reproducibility
         random.seed(42)
 
+        dataset_dir = os.path.join(settings.BASE_DIR, 'dataset')
+        os.makedirs(dataset_dir, exist_ok=True)
+        
+        # 6. Save a copy of dataset/to_label_labeled.csv to dataset_v1/ before deleting anything
+        dataset_v1_dir = os.path.join(settings.BASE_DIR, 'dataset_v1')
+        os.makedirs(dataset_v1_dir, exist_ok=True)
+        old_labeled_path = os.path.join(dataset_dir, 'to_label_labeled.csv')
+        if os.path.exists(old_labeled_path):
+            backup_path = os.path.join(dataset_v1_dir, 'to_label_labeled.csv')
+            with open(old_labeled_path, 'r', encoding='utf-8', errors='ignore') as src_f:
+                with open(backup_path, 'w', encoding='utf-8', newline='') as dst_f:
+                    dst_f.write(src_f.read())
+            self.stdout.write(f"Backed up old labeled dataset to {backup_path}")
+
         self.stdout.write("Deleting old demo data and old CSV datasets...")
         Match.objects.all().delete()
         HelpRequest.objects.all().delete()
         NGOProfile.objects.all().delete()
         User.objects.filter(username__startswith='demo_').delete()
 
-        dataset_dir = os.path.join(settings.BASE_DIR, 'dataset')
-        os.makedirs(dataset_dir, exist_ok=True)
-        
-        # Remove old requests_to_label.csv if present
-        old_csv = os.path.join(dataset_dir, 'requests_to_label.csv')
-        if os.path.exists(old_csv):
-            os.remove(old_csv)
+        # Remove old CSVs from dataset folder
+        for filename in ['to_label.csv', 'system_output.csv', 'ngo_list.csv', 'to_label_labeled.csv', 'requests_to_label.csv']:
+            p = os.path.join(dataset_dir, filename)
+            if os.path.exists(p):
+                os.remove(p)
 
         self.stdout.write("Creating 20 verified NGOs...")
         city_names = list(CITIES.keys())
@@ -144,34 +156,21 @@ class Command(BaseCommand):
         raw_requests_meta = []
         now = timezone.now()
 
-        # Distribution targets: ~10 Critical, ~25 High, ~65 Normal
-        # Let's craft 10 critical requests specifically
         critical_count = 0
         target_critical = 10
-        target_high = 25
-        target_normal = 65
-
-        # We will generate 100 base requests total
         generated_count = 0
-        
-        # Keep track of generated texts to ensure high distinctness
         generated_texts = set()
 
         while generated_count < 100:
             category = random.choice(category_names)
             template_list = templates[category]
             
-            # If we need critical ones, pick templates marked critical or inject critical words
             if critical_count < target_critical:
                 crit_templates = [t for t in template_list if t[3] == True]
-                if crit_templates and random.random() < 0.8:
+                if crit_templates and random.random() < 0.9:
                     title_tmpl, desc_tmpl_raw, urgency, is_crit = random.choice(crit_templates)
                 else:
                     title_tmpl, desc_tmpl_raw, urgency, is_crit = random.choice(template_list)
-                    # Force critical injection
-                    cw = random.choice(["surgery", "accident", "icu", "dying", "cancer", "flood", "starving"])
-                    desc_tmpl_raw = f"Critical emergency involving {cw}. " + desc_tmpl_raw
-                    is_crit = True
             else:
                 non_crit_templates = [t for t in template_list if t[3] == False]
                 title_tmpl, desc_tmpl_raw, urgency, is_crit = random.choice(non_crit_templates if non_crit_templates else template_list)
@@ -188,13 +187,11 @@ class Command(BaseCommand):
             title = title_tmpl.format(name=name, grade=grade, amount=amount, count=count, days=days, city=city)
             description = desc_tmpl_raw.format(name=name, grade=grade, amount=amount, count=count, days=days, city=city)
 
-            # Ensure uniqueness
             text_signature = title + " | " + description
             if text_signature in generated_texts:
                 continue
             generated_texts.add(text_signature)
 
-            # Random created_at in the last 60 days
             days_ago = random.uniform(0, 60)
             req_date = now - timedelta(days=days_ago)
 
@@ -215,17 +212,29 @@ class Command(BaseCommand):
             })
             generated_count += 1
 
-        # 3. Create 15 near-duplicates AND 10 hard negatives
-        # Pick 15 random requests to make near-duplicates of
+        # 4. Create 15 near-duplicates in three groups of 5:
+        # Group 1 (5): 1 or 2 words changed
+        # Group 2 (5): reworded using synonyms
+        # Group 3 (5): a lot of words change but meaning stays same
         near_dup_sources = random.sample(raw_requests_meta, 15)
-        for src in near_dup_sources:
+        
+        for i, src in enumerate(near_dup_sources):
             later_date = src['created_at'] + timedelta(days=random.randint(1, 8))
             if later_date > now:
                 later_date = now - timedelta(hours=random.randint(1, 12))
 
-            # Near-duplicate: same category, slightly changed words
-            new_title = src['title'] + " (Reminder)"
-            new_desc = src['description'] + " Please review this urgent matter again."
+            if i < 5:
+                # Group 1: 1 or 2 words changed
+                new_title = src['title'] + " urgently"
+                new_desc = src['description'].replace("needs", "requires")
+            elif i < 10:
+                # Group 2: reworded with synonyms
+                new_title = "Appeal: " + src['title']
+                new_desc = src['description'].replace("family", "household").replace("support", "assistance").replace("need", "require")
+            else:
+                # Group 3: a lot of words change, meaning stays same
+                new_title = "Help request regarding " + src['category'].lower()
+                new_desc = f"We are writing from {src['city']} to request urgent help for our {src['category'].lower()} situation as things are very difficult right now."
 
             raw_requests_meta.append({
                 'beneficiary': src['beneficiary'],
@@ -240,25 +249,34 @@ class Command(BaseCommand):
                 'is_hard_negative': 0
             })
 
-        # Pick 10 random requests to make hard negatives of (same user, same category, really different need)
+        # 5. Create 10 REAL hard negatives: same user, same category, really different need (different problem, different words, no filler prefix)
         hard_neg_sources = random.sample(raw_requests_meta, 10)
         for src in hard_neg_sources:
             later_date = src['created_at'] + timedelta(days=random.randint(1, 8))
             if later_date > now:
                 later_date = now - timedelta(hours=random.randint(1, 12))
 
-            # Hard negative: same user and category, but completely different problem/description
             other_cat_templates = templates[src['category']]
+            # Pick a different template from same category
             alt_t, alt_d, alt_u, _ = random.choice(other_cat_templates)
-            new_title = "Different requirement: " + alt_t
-            new_desc = "Additionally, we have another unrelated need: " + alt_d
+            
+            # Fill placeholders properly
+            city = src['city']
+            name = random.choice(names)
+            grade = random.choice(grades)
+            amount = random.choice(amounts)
+            count = random.choice(counts)
+            days = random.choice(day_counts)
+
+            new_title = alt_t.format(name=name, grade=grade, amount=amount, count=count, days=days, city=city)
+            new_desc = alt_d.format(name=name, grade=grade, amount=amount, count=count, days=days, city=city)
 
             raw_requests_meta.append({
                 'beneficiary': src['beneficiary'],
                 'title': new_title,
                 'category': src['category'],
                 'description': new_desc,
-                'city': src['city'],
+                'city': city,
                 'urgency': alt_u,
                 'created_at': later_date,
                 'is_duplicate_truth': 0,
@@ -266,23 +284,27 @@ class Command(BaseCommand):
                 'is_hard_negative': 1
             })
 
-        # 4. Make 5 suspicious cases on purpose (one user sending 4 or more requests in one day)
+        # Make 5 suspicious cases on purpose (one user sending 4 requests in one day)
         suspicious_users = random.sample(beneficiaries, 5)
         for s_user in suspicious_users:
             burst_day = now - timedelta(days=random.randint(2, 40))
-            # 4 requests within a few hours on the same day
             for s_i in range(4):
                 req_time = burst_day + timedelta(minutes=s_i * 20)
                 is_susp_truth = 1 if s_i >= 2 else 0 # 3rd and 4th request marked suspicious
                 cat = random.choice(category_names)
                 
+                # Use a real distinct template for suspicious burst requests
+                cat_t_list = templates[cat]
+                st_t, st_d, st_u, _ = random.choice(cat_t_list)
+                city = random.choice(city_names)
+                
                 raw_requests_meta.append({
                     'beneficiary': s_user,
-                    'title': f"Rapid submission {s_i+1} for {cat}",
+                    'title': st_t.format(name=random.choice(names), grade=random.choice(grades), amount=random.choice(amounts), count=random.choice(counts), days=random.choice(day_counts), city=city),
                     'category': cat,
-                    'description': f"Submitting multiple requests quickly regarding {cat.lower()} support requirement number {s_i+1}.",
-                    'city': random.choice(city_names),
-                    'urgency': 'medium',
+                    'description': st_d.format(name=random.choice(names), grade=random.choice(grades), amount=random.choice(amounts), count=random.choice(counts), days=random.choice(day_counts), city=city),
+                    'city': city,
+                    'urgency': st_u,
                     'created_at': req_time,
                     'is_duplicate_truth': 0,
                     'is_suspicious_truth': is_susp_truth,
@@ -298,9 +320,14 @@ class Command(BaseCommand):
         system_output_rows = []
 
         priority_counts = {'Critical': 0, 'High': 0, 'Normal': 0}
-        duplicate_count = 0
+        brace_count = 0
 
         for meta in raw_requests_meta:
+            # 1. PLACEHOLDER CHECK: check if title or description contains '{' or '}'
+            if "{" in meta['title'] or "}" in meta['title'] or "{" in meta['description'] or "}" in meta['description']:
+                self.stdout.write(self.style.ERROR(f"ERROR: Unfilled placeholder found in request title/description! Title: {meta['title']} | Desc: {meta['description']}"))
+                return
+
             help_req = HelpRequest.objects.create(
                 beneficiary=meta['beneficiary'],
                 title=meta['title'],
@@ -324,8 +351,8 @@ class Command(BaseCommand):
             help_req.is_suspicious = check_suspicious(help_req)
             help_req.save()
 
-            if help_req.is_duplicate:
-                duplicate_count += 1
+            if "{" in help_req.title or "}" in help_req.title or "{" in help_req.description or "}" in help_req.description:
+                brace_count += 1
 
             if label in priority_counts:
                 priority_counts[label] += 1
@@ -395,10 +422,10 @@ class Command(BaseCommand):
                     'rating': ngo.rating
                 })
 
-        # 6. Print counts at the end
+        # 7. Print counts at the end
         self.stdout.write(self.style.SUCCESS(f"\n--- SEEDING COMPLETED SUCCESSFULLY ---"))
-        self.stdout.write(f"Total Requests Created: {len(raw_requests_meta)}")
+        self.stdout.write(f"Total Requests: {len(raw_requests_meta)}")
         self.stdout.write(f"Distinct Descriptions: {len(generated_texts)}")
-        self.stdout.write(f"Priority Distribution: Critical={priority_counts['Critical']}, High={priority_counts['High']}, Normal={priority_counts['Normal']}")
-        self.stdout.write(f"Duplicates Detected by System: {duplicate_count}")
+        self.stdout.write(f"Priority Counts: Critical={priority_counts['Critical']}, High={priority_counts['High']}, Normal={priority_counts['Normal']}")
+        self.stdout.write(f"Number of requests containing '{{': {brace_count}")
         self.stdout.write(f"Datasets saved in: {dataset_dir}\n")
