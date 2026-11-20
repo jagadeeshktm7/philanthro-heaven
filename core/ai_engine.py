@@ -9,12 +9,33 @@ CRITICAL_WORDS = [
     "icu", "blood", "flood", "homeless", "no food", "starving", "fire"
 ]
 
+# Phrases where a critical word should not trigger the critical bonus
+IGNORE_PHRASES = [
+    "post-surgery", "post surgery", "after surgery",
+    "dental", "minor surgery"
+]
+
 # Weights for matching algorithm
 WEIGHTS = {
     'category': 0.35,
     'urgency': 0.25,
     'proximity': 0.25,
     'trust': 0.15
+}
+
+# Default parameters used when params=None
+DEFAULT_PARAMS = {
+    'urgency_high': 0.5,
+    'urgency_medium': 0.25,
+    'urgency_low': 0.0,
+    'critical_bonus': 0.4,
+    'healthcare_bonus': 0.1,
+    'critical_threshold': 0.7,
+    'high_threshold': 0.4,
+    'category': WEIGHTS['category'],
+    'urgency': WEIGHTS['urgency'],
+    'proximity': WEIGHTS['proximity'],
+    'trust': WEIGHTS['trust'],
 }
 
 def haversine_km(lat1, lon1, lat2, lon2):
@@ -31,36 +52,53 @@ def haversine_km(lat1, lon1, lat2, lon2):
     c = 2 * math.asin(math.sqrt(a))
     return R * c
 
-def calculate_priority(title, description, category, urgency):
+def calculate_priority(title, description, category, urgency, params=None):
     """Calculate priority score and label for a help request."""
+    p = params if params is not None else {}
+    urgency_high = p.get('urgency_high', DEFAULT_PARAMS['urgency_high'])
+    urgency_medium = p.get('urgency_medium', DEFAULT_PARAMS['urgency_medium'])
+    urgency_low = p.get('urgency_low', DEFAULT_PARAMS['urgency_low'])
+    critical_bonus = p.get('critical_bonus', DEFAULT_PARAMS['critical_bonus'])
+    healthcare_bonus = p.get('healthcare_bonus', DEFAULT_PARAMS['healthcare_bonus'])
+    critical_threshold = p.get('critical_threshold', DEFAULT_PARAMS['critical_threshold'])
+    high_threshold = p.get('high_threshold', DEFAULT_PARAMS['high_threshold'])
+
     score = 0.0
     
     # Urgency weight
     if urgency == 'high':
-        score += 0.5
+        score += urgency_high
     elif urgency == 'medium':
-        score += 0.25
+        score += urgency_medium
     elif urgency == 'low':
-        score += 0.0
+        score += urgency_low
+
+    # Remove ignore phrases before checking for critical keywords
+    text = (title + " " + description).lower()
+    cleaned_text = text
+    for phrase in IGNORE_PHRASES:
+        if phrase == "dental":
+            for cw in CRITICAL_WORDS:
+                cleaned_text = cleaned_text.replace("dental " + cw, " ")
+        cleaned_text = cleaned_text.replace(phrase, " ")
 
     # Critical keywords check
-    text = (title + " " + description).lower()
     for word in CRITICAL_WORDS:
-        if word in text:
-            score += 0.4
+        if word in cleaned_text:
+            score += critical_bonus
             break
 
     # Category check
     if category == 'Healthcare':
-        score += 0.1
+        score += healthcare_bonus
 
     # Cap score at 1.0
     score = min(score, 1.0)
 
     # Determine label
-    if score >= 0.7:
+    if score >= critical_threshold:
         label = "Critical"
-    elif score >= 0.4:
+    elif score >= high_threshold:
         label = "High"
     else:
         label = "Normal"
@@ -102,8 +140,14 @@ def check_suspicious(request):
 
     return recent_count >= 3
 
-def match_score(request, ngo):
+def match_score(request, ngo, params=None):
     """Calculate match score between a help request and an NGO."""
+    p = params if params is not None else {}
+    w_category = p.get('category', DEFAULT_PARAMS['category'])
+    w_urgency = p.get('urgency', DEFAULT_PARAMS['urgency'])
+    w_proximity = p.get('proximity', DEFAULT_PARAMS['proximity'])
+    w_trust = p.get('trust', DEFAULT_PARAMS['trust'])
+
     # 1. Category similarity (Jaccard similarity)
     req_cat_set = {request.category.lower()}
     ngo_causes_set = {c.strip().lower() for c in ngo.causes.split(',') if c.strip()}
@@ -127,15 +171,15 @@ def match_score(request, ngo):
 
     # Final weighted score
     total_score = (
-        WEIGHTS['category'] * cat_sim +
-        WEIGHTS['urgency'] * urg_score +
-        WEIGHTS['proximity'] * prox_score +
-        WEIGHTS['trust'] * trust_score
+        w_category * cat_sim +
+        w_urgency * urg_score +
+        w_proximity * prox_score +
+        w_trust * trust_score
     )
 
     return round(total_score, 4)
 
-def get_top_matches(request, how_many=3):
+def get_top_matches(request, how_many=3, params=None):
     """Return top matched verified NGOs for a request as a list of (ngo, score)."""
     from .models import NGOProfile
     verified_ngos = NGOProfile.objects.filter(is_verified=True)
@@ -153,7 +197,7 @@ def get_top_matches(request, how_many=3):
 
     scored_ngos = []
     for ngo in matching_ngos:
-        score = match_score(request, ngo)
+        score = match_score(request, ngo, params=params)
         scored_ngos.append((ngo, score))
 
     # Sort high to low by score

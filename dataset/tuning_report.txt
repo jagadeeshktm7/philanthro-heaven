@@ -1,0 +1,40 @@
+==================================================
+PHILANTHRO HEAVEN — AI TUNING & TEST REPORT
+==================================================
+
+1. PRIORITY TUNING (Total labelled: 145 | Tuning half: 72 | Test half: 73)
+   Default Params: urgency_high=0.5, critical_bonus=0.4, critical_threshold=0.7, high_threshold=0.4
+   Best Params   : urgency_high=0.5, critical_bonus=0.2, critical_threshold=0.6, high_threshold=0.3
+
+   Split        Config                 Accuracy     Macro F1    
+   ----------------------------------------------------------
+   Tuning       Default                0.5833       0.5635      
+   Tuning       Best Tuned             0.7361       0.7375      
+   Test         Default                0.5616       0.5928      
+   Test         Best Tuned             0.7397       0.7462      
+   Test         Baseline (Urgency)     0.6575       0.6532      
+
+   Test-Half Per-Class F1 (Default -> Best Tuned):
+     - Critical : 0.8000 -> 0.8462
+     - High     : 0.3673 -> 0.6087
+     - Normal   : 0.6111 -> 0.7838
+
+2. MATCHING TUNING (Total labelled: 48 | Tuning half: 24 | Test half: 24)
+   Weight combinations tested: 829
+   Default Weights: category=0.35, urgency=0.25, proximity=0.25, trust=0.15
+   Best Weights   : category=0.05, urgency=0.4, proximity=0.4, trust=0.15
+
+   Split        Config                       Top-1 Acc      Top-3 Acc     
+   --------------------------------------------------------------------
+   Tuning       Default                      0.5417         0.8750        
+   Tuning       Best Tuned                   0.7917         1.0000        
+   Test         Default                      0.5000         0.9167        
+   Test         Best Tuned                   1.0000         1.0000        
+   Test         Baseline (Nearest in Cat.)   0.9167         N/A           
+
+   Test-Half Top-1 Hits: Default=12/24, Best Tuned=24/24, Baseline=22/24
+   Test-Half Top-3 Hits: Default=22/24, Best Tuned=24/24
+
+==================================================
+TUNING COMPLETE (ai_engine.py defaults unchanged)
+==================================================
